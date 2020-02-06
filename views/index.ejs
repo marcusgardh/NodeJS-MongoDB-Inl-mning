@@ -19,15 +19,21 @@
             <a href="/?sort=-1">Sortera (Ö-A)</a>
         </div>
         
-        <div>
-            <% for (let i = 0; i < array.length; i++) { %>
-            <div>
-                <span><%= array[i].text %></span>
-                <a href="/edit/<%=array[i]._id%>">Redigera</a> | <a href="delete/<%= array[i]._id %>">Ta bort</a> | <a href="/complete/<%=array[i]._id%>">complete</a>
-                <% if (array[i].isCompleted) {%><span>✓</span><%}%> 
+        <main class="container">
+            <div class="row d-flex flex-column align-items-center">
+                <% for (let i = 0; i < array.length; i++) { %>
+                <div class="col-6 border">
+                    <div class="d-flex flex-grow">
+                        <span><%= array[i].text %></span>
+                    </div>
+                    <div class="justify-content-end">
+                        <a href="/edit/<%=array[i]._id%>">Redigera</a> | <a href="delete/<%= array[i]._id %>">Ta bort</a> | <a href="/complete/<%=array[i]._id%>">complete</a>
+                        <% if (array[i].isCompleted) {%><span>✓</span><%}%> 
+                    </div>
+                </div>
+                <% } %>
             </div>
-            <% } %>
-        </div>
+        </main>
 
     </body>
 </html>
