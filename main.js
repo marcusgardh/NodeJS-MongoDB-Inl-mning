@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+const editRoute = require("./routes/editRoute");
 const ToDo = require("./model/ToDo");
 const config = require("./config/config");
 const path = require("path");
@@ -12,6 +13,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.set("views", "views");
 app.set("view engine", "ejs");
+
+app.use(editRoute);
 
 app.get("/", async (req, res) => {
     let toDoArray = [];
