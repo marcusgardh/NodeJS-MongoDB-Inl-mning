@@ -7,6 +7,10 @@ let toDoSchema = new Schema({
         type: String,
         required: true
     },
+    date : {
+        type: Date,
+        default: Date.now
+    },
     isCompleted: Boolean
 })
 

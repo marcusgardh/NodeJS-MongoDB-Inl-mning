@@ -11,27 +11,39 @@
     <body>
         <div>
             <form action="/" method="POST">
-                <input type="text" placeholder="Ny punkt i listan" name="todo" required />
+                <input type="text" placeholder="Ny punkt i listan" name="todo" />
                 <button type="submit">Lägg till</button>
             </form>
 
-            <a href="/?sort=1">Sortera (A-Ö)</a>
-            <a href="/?sort=-1">Sortera (Ö-A)</a>
+            <div>
+                <a class="text-dark" href="/?sort=1">Sortera äldst-nyast</a>
+                <a class="text-dark" href="/?sort=-1">Sortera nyast-äldst</a>
+            </div>
         </div>
         
-        <main class="container">
-            <div class="row d-flex flex-column align-items-center">
+        <main>
+            <div id="list">
                 <% for (let i = 0; i < array.length; i++) { %>
-                <div class="col-6 border">
-                    <div class="d-flex flex-grow">
-                        <span><%= array[i].text %></span>
+                <div class="listitem <% if (array[i].isCompleted) {%>done<%} else {%>notdone<%}%>">
+                    <div class="textarea">
+                        <div>
+                            <span>
+                                <%= array[i].text %> - <%= array[i].date.getDate() %>/<%= array[i].date.getMonth()+1 %>
+                                -<%= array[i].date.getFullYear() %> <%= array[i].date.getHours() %>:<%= array[i].date.getMinutes() %>
+                            </span>
+                        </div>
+                        <div>
+                            <a class="text-dark" href="/complete/<%=array[i]._id%>">complete</a>
+                            <a class="text-dark" href="/edit/<%=array[i]._id%>">Redigera</a>
+                            <a class="text-dark" href="delete/<%= array[i]._id %>">Ta bort</a>
+                        </div>
                     </div>
-                    <div class="justify-content-end">
-                        <a href="/edit/<%=array[i]._id%>">Redigera</a> | <a href="delete/<%= array[i]._id %>">Ta bort</a> | <a href="/complete/<%=array[i]._id%>">complete</a>
-                        <% if (array[i].isCompleted) {%><span>✓</span><%}%> 
+                    <div class="checkarea">
+                        <% if (array[i].isCompleted) {%><span>✓</span><%} else {%>X<%}%>
                     </div>
                 </div>
                 <% } %>
+
             </div>
         </main>
 

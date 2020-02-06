@@ -1,4 +1,38 @@
 body {
+    width: 100%;
+    background: rgb(102,5,140);
+    background: linear-gradient(90deg, rgba(102,5,140,1) 0%, rgba(223,140,255,1) 90%);
     word-break: break-all;
     word-break: break-word;
+}
+
+#list {
+    padding: 30px;
+    width: 35%;
+    border-radius: 15%;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 0 auto;
+}
+
+.listitem {
+    display: flex;
+    flex-direction: row;
+}
+
+.textarea {
+    width: 70%;
+}
+
+.checkarea {
+    width: 30%;
+}
+
+
+
+.done {
+    background-color: #7df185;
+}
+
+.notdone {
+    background-color: #f36666;
 }

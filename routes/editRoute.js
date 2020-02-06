@@ -13,7 +13,14 @@ router.post("/edit/:id", async (req, res) => {
     let id = req.params.id;
     let updatedText = req.body.todo;
 
-    await ToDo.updateOne({_id: id}, {$set: {text: updatedText}});
+    await ToDo.updateOne({_id: id}, {$set: {text: updatedText}}, {runValidators: true}, (error, success) => {
+        if (error) {
+            res.send(error._message);
+        }
+        else {
+            res.redirect("/");
+        }
+    });
 
     res.redirect("/");
 })

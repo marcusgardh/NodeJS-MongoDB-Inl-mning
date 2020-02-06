@@ -25,9 +25,9 @@ app.get("/", async (req, res) => {
     let sort = req.query.sort;
     let toDoList  = await ToDo.find({
         // name: "Skor"
-    }).sort({text: sort})
+    }).sort({date: sort})
     // .limit(2)
-    .select({text: 1, isCompleted: 1});
+    .select({text: 1, date: 1, isCompleted: 1});
 
     toDoArray = toDoList;
 
