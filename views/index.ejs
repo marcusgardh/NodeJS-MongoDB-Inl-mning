@@ -9,10 +9,15 @@
         <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
-        <form action="/" method="POST">
-            <input type="text" placeholder="Ny punkt i listan" name="todo" required />
-            <button type="submit">Lägg till</button>
-        </form>
+        <div>
+            <form action="/" method="POST">
+                <input type="text" placeholder="Ny punkt i listan" name="todo" required />
+                <button type="submit">Lägg till</button>
+            </form>
+
+            <a href="/?sort=1">Sortera (A-Ö)</a>
+            <a href="/?sort=-1">Sortera (Ö-A)</a>
+        </div>
         
         <div>
             <% for (let i = 0; i < array.length; i++) { %>

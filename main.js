@@ -5,6 +5,7 @@ const app = express();
 
 const editRoute = require("./routes/editRoute");
 const deleteRoute = require("./routes/deleteRoute");
+const completionRoute = require("./routes/completionRoute");
 const ToDo = require("./model/ToDo");
 const config = require("./config/config");
 const path = require("path");
@@ -17,6 +18,7 @@ app.set("view engine", "ejs");
 
 app.use(editRoute);
 app.use(deleteRoute);
+app.use(completionRoute);
 
 app.get("/", async (req, res) => {
     let toDoArray = [];
