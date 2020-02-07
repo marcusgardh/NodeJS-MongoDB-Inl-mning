@@ -22,7 +22,12 @@ app.use(completionRoute);
 
 app.get("/", async (req, res) => {
     let toDoArray = [];
+    
     let sort = req.query.sort;
+    if (!sort) {
+        sort = 1;
+    }
+
     let toDoList  = await ToDo.find({
         // name: "Skor"
     }).sort({date: sort})
@@ -31,7 +36,7 @@ app.get("/", async (req, res) => {
 
     toDoArray = toDoList;
 
-    res.render("index", {title: "Att göra", array: toDoArray});
+    res.render("index", {title: "Att göra", array: toDoArray, sort: sort});
 })
 
 app.post("/", async (req, res) => {
@@ -46,7 +51,7 @@ app.post("/", async (req, res) => {
             res.send(error._message);
         }
         else {
-            res.redirect("/");
+            res.redirect("/?sort=1");
         }
     });
 })
