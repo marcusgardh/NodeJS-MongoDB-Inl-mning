@@ -38,8 +38,7 @@ app.post("/", async (req, res) => {
     let newToDo = req.body.todo;
 
     let toDo = new ToDo({
-        text : newToDo,
-        isCompleted: false
+        text : newToDo
     })
 
     await toDo.save((error, success) => {

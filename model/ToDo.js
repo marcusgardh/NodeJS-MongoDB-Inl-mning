@@ -11,7 +11,10 @@ let toDoSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    isCompleted: Boolean
+    isCompleted: {
+        type: Boolean,
+        default: false
+    }
 })
 
 let ToDo = mongoose.model("todo", toDoSchema);
