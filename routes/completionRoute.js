@@ -4,9 +4,10 @@ const ToDo = require("../model/ToDo");
 
 const router = express.Router();
 
-router.get("/complete/:sort/:id", async (req, res) => {
+router.get("/complete/:sort/:page/:id", async (req, res) => {
     let id = req.params.id;
     let sort = req.params.sort;
+    let page = req.params.page;
 
     let toDo = await ToDo.findOne({_id : id}).select({isCompleted: 1});
 
@@ -17,7 +18,7 @@ router.get("/complete/:sort/:id", async (req, res) => {
         await ToDo.updateOne({_id: id}, {$set: {isCompleted: true}});   
     }
 
-    res.redirect("/?sort=" + sort);
+    await res.redirect("/?sort=" + sort+ "&page=" + page);
 })
 
 module.exports = router;

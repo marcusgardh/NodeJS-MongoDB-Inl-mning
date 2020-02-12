@@ -10,8 +10,8 @@
         <link href='https://fonts.googleapis.com/css?family=Alatsi' rel='stylesheet'>
     </head>
     <body>
-        <div>
-            <form action="/" method="POST">
+        <div id="searcharea">
+            <form method="POST">
                 <input type="text" placeholder="Ny punkt i listan" name="todo" />
                 <button type="submit">Lägg till</button>
             </form>
@@ -19,6 +19,10 @@
             <div>
                 <a class="text-dark" href="/?sort=1">Sortera äldst-nyast</a>
                 <a class="text-dark" href="/?sort=-1">Sortera nyast-äldst</a>
+            </div>
+            <div>
+                <a href="/?sort=<%= queries.sort %>&page=<%= queries.page - 1  %>">Till föregående sida</a> |
+                <a href="/?sort=<%= queries.sort %>&page=<%= Number(queries.page) + 1%>">Till nästa sida</a>
             </div>
         </div>
         
@@ -31,13 +35,13 @@
                             <span>
                                 <%= array[i].text %> - <%= array[i].date.getDate() %>/<%= array[i].date.getMonth()+1 %>
                                 -<%= array[i].date.getFullYear() %> <% if (array[i].date.getHours() < 10) { %>
-                                    0<% } %><%= array[i].date.getHours() %>:<%= array[i].date.getMinutes() %>
+                                    0<% } %><%= array[i].date.getHours() %>:<% if (array[i].date.getMinutes() < 10) { %>0<% } %><%= array[i].date.getMinutes() %>
                             </span>
                         </div>
                         <div>
-                            <a class="text-dark" href="/complete/<%= sort %>/<%=array[i]._id%>">complete</a>
-                            <a class="text-dark" href="/edit/<%= sort %>/<%=array[i]._id%>">Redigera</a>
-                            <a class="text-dark" href="/delete/<%= sort %>/<%= array[i]._id %>">Ta bort</a>
+                            <a class="text-dark" href="/complete/<%= queries.sort %>/<%= queries.page %>/<%=array[i]._id%>">complete</a>
+                            <a class="text-dark" href="/edit/<%= queries.sort %>/<%= queries.page %>/<%=array[i]._id%>">Redigera</a>
+                            <a class="text-dark" href="/delete/<%= queries.sort %>/<%= queries.page %>/<%= array[i]._id %>">Ta bort</a>
                         </div>
                     </div>
                     <div class="checkarea">

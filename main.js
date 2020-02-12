@@ -23,24 +23,39 @@ app.use(completionRoute);
 app.get("/", async (req, res) => {
     let toDoArray = [];
     
+    let page = req.query.page;
+
+    if (!page || page <= 0) {
+        page = 1;
+    }
+
+    toDosPerPage = 9;
+
     let sort = req.query.sort;
     if (!sort) {
+        sort = 1;
+    }
+
+    if (sort != -1 && sort != 1) {
         sort = 1;
     }
 
     let toDoList  = await ToDo.find({
         // name: "Skor"
     }).sort({date: sort})
-    // .limit(2)
+    .skip(((toDosPerPage * page) - toDosPerPage))
+    .limit(toDosPerPage)
     .select({text: 1, date: 1, isCompleted: 1});
 
     toDoArray = toDoList;
 
-    res.render("index", {title: "Att göra", array: toDoArray, sort: sort});
+    res.render("index", {title: "Att göra", array: toDoArray, queries: {sort, page}});
 })
 
 app.post("/", async (req, res) => {
     let newToDo = req.body.todo;
+    let sort = req.query.sort;
+    let page = req.query.page;
 
     let toDo = new ToDo({
         text : newToDo
@@ -51,7 +66,7 @@ app.post("/", async (req, res) => {
             res.send(error._message);
         }
         else {
-            res.redirect("/?sort=1");
+            res.redirect("/?sort=" + sort + "&page=" + page);
         }
     });
 })
