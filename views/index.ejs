@@ -25,7 +25,7 @@
                 <a href="/?sort=<%= queries.sort %>&page=<%= Number(queries.page) + 1%>">Till nästa sida</a>
             </div>
             <div>
-                <a href="/about">About</a>
+                <a href="/about/<%= queries.sort %>/<%= queries.page %>">About</a>
             </div>
         </div>
         

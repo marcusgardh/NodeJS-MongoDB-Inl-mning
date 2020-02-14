@@ -52,8 +52,11 @@ app.get("/", async (req, res) => {
     res.render("index", {title: "Att göra", array: toDoArray, queries: {sort, page}});
 })
 
-app.get("/about", (req, res) => {
-    res.render("about", {title: "About"});
+app.get("/about/:sort/:page", (req, res) => {
+    let sort = req.params.sort;
+    let page = req.params.page;
+
+    res.render("about", {title: "About", queries: {sort: sort, page: page}});
 })
 
 app.post("/", async (req, res) => {
