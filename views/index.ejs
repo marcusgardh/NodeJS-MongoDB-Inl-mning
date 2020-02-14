@@ -24,6 +24,9 @@
                 <a href="/?sort=<%= queries.sort %>&page=<%= queries.page - 1  %>">Till föregående sida</a> |
                 <a href="/?sort=<%= queries.sort %>&page=<%= Number(queries.page) + 1%>">Till nästa sida</a>
             </div>
+            <div>
+                <a href="/about">About</a>
+            </div>
         </div>
         
         <main>
@@ -41,7 +44,7 @@
                         <div>
                             <a class="text-dark" href="/complete/<%= queries.sort %>/<%= queries.page %>/<%=array[i]._id%>">complete</a>
                             <a class="text-dark" href="/edit/<%= queries.sort %>/<%= queries.page %>/<%=array[i]._id%>">Redigera</a>
-                            <a class="text-dark" href="/delete/<%= queries.sort %>/<%= queries.page %>/<%= array[i]._id %>">Ta bort</a>
+                            <a class="delete text-dark" href="/delete/<%= queries.sort %>/<%= queries.page %>/<%= array[i]._id %>">Ta bort</a>
                         </div>
                     </div>
                     <div class="checkarea">

@@ -52,6 +52,10 @@ app.get("/", async (req, res) => {
     res.render("index", {title: "Att göra", array: toDoArray, queries: {sort, page}});
 })
 
+app.get("/about", (req, res) => {
+    res.render("about", {title: "About"});
+})
+
 app.post("/", async (req, res) => {
     let newToDo = req.body.todo;
     let sort = req.query.sort;
@@ -71,11 +75,15 @@ app.post("/", async (req, res) => {
     });
 })
 
+const options = {useNewUrlParser: true, useUnifiedTopology: true}
+
 mongoose
-.connect(config.databaseURL, config.options)
+.connect(config, options)
 .then(() => {
     const port = process.env.PORT || 8000;
     app.listen(port);
 }).catch((e) => {
     console.log(e);
 })
+
+module.exports = app;
