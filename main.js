@@ -29,7 +29,7 @@ app.get("/", async (req, res) => {
         page = 1;
     }
 
-    toDosPerPage = 9;
+    const toDosPerPage = 9;
 
     let sort = req.query.sort;
     if (!sort) {
