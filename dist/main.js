@@ -1,14 +1,16 @@
-const express = require("express");
-const mongoose = require("mongoose");
+"use strict";
 
-const app = express();
+var express = require("express");
+var mongoose = require("mongoose");
 
-const editRoute = require("./routes/editRoute");
-const deleteRoute = require("./routes/deleteRoute");
-const completionRoute = require("./routes/completionRoute");
-const ToDo = require("./model/ToDo");
-const config = require("./config/config");
-const path = require("path");
+var app = express();
+
+var editRoute = require("./routes/editRoute");
+var deleteRoute = require("./routes/deleteRoute");
+var completionRoute = require("./routes/completionRoute");
+var ToDo = require("./model/ToDo");
+var config = require("./config/config");
+var path = require("path");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -20,10 +22,10 @@ app.use(editRoute);
 app.use(deleteRoute);
 app.use(completionRoute);
 
-app.get("/", async (req, res) => {
-    let toDoArray = [];
+app.get("/", async function (req, res) {
+    var toDoArray = [];
 
-    let page = req.query.page;
+    var page = req.query.page;
 
     if (!page || page <= 0) {
         page = 1;
@@ -31,7 +33,7 @@ app.get("/", async (req, res) => {
 
     toDosPerPage = 9;
 
-    let sort = req.query.sort;
+    var sort = req.query.sort;
     if (!sort) {
         sort = 1;
     }
@@ -40,32 +42,32 @@ app.get("/", async (req, res) => {
         sort = 1;
     }
 
-    let toDoList = await ToDo.find({
+    var toDoList = await ToDo.find({
         // name: "Skor"
     }).sort({ date: sort }).skip(toDosPerPage * page - toDosPerPage).limit(toDosPerPage).select({ text: 1, date: 1, isCompleted: 1 });
 
     toDoArray = toDoList;
 
-    res.render("index", { title: "Att göra", array: toDoArray, queries: { sort, page } });
+    res.render("index", { title: "Att göra", array: toDoArray, queries: { sort: sort, page: page } });
 });
 
-app.get("/about/:sort/:page", (req, res) => {
-    let sort = req.params.sort;
-    let page = req.params.page;
+app.get("/about/:sort/:page", function (req, res) {
+    var sort = req.params.sort;
+    var page = req.params.page;
 
     res.render("about", { title: "About", queries: { sort: sort, page: page } });
 });
 
-app.post("/", async (req, res) => {
-    let newToDo = req.body.todo;
-    let sort = req.query.sort;
-    let page = req.query.page;
+app.post("/", async function (req, res) {
+    var newToDo = req.body.todo;
+    var sort = req.query.sort;
+    var page = req.query.page;
 
-    let toDo = new ToDo({
+    var toDo = new ToDo({
         text: newToDo
     });
 
-    await toDo.save((error, success) => {
+    await toDo.save(function (error, success) {
         if (error) {
             res.send(error._message);
         } else {
@@ -74,12 +76,12 @@ app.post("/", async (req, res) => {
     });
 });
 
-const options = { useNewUrlParser: true, useUnifiedTopology: true };
+var options = { useNewUrlParser: true, useUnifiedTopology: true };
 
-mongoose.connect(config, options).then(() => {
-    const port = process.env.PORT || 8000;
+mongoose.connect(config, options).then(function () {
+    var port = process.env.PORT || 8000;
     app.listen(port);
-}).catch(e => {
+}).catch(function (e) {
     console.log(e);
 });
 

@@ -1,14 +1,16 @@
-const express = require("express");
+"use strict";
 
-const ToDo = require("../model/ToDo");
+var express = require("express");
 
-const router = express.Router();
+var ToDo = require("../model/ToDo");
 
-router.get("/delete/:sort/:page/:id", async (req, res) => {
+var router = express.Router();
+
+router.get("/delete/:sort/:page/:id", async function (req, res) {
     await ToDo.deleteOne({ _id: { $eq: req.params.id } });
 
-    let sort = req.params.sort;
-    let page = req.params.page;
+    var sort = req.params.sort;
+    var page = req.params.page;
 
     res.redirect("/?sort=" + sort + "&page=" + page);
 });

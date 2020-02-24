@@ -1,15 +1,17 @@
-const express = require("express");
+"use strict";
 
-const ToDo = require("../model/ToDo");
+var express = require("express");
 
-const router = express.Router();
+var ToDo = require("../model/ToDo");
 
-router.get("/complete/:sort/:page/:id", async (req, res) => {
-    let id = req.params.id;
-    let sort = req.params.sort;
-    let page = req.params.page;
+var router = express.Router();
 
-    let toDo = await ToDo.findOne({ _id: id }).select({ isCompleted: 1 });
+router.get("/complete/:sort/:page/:id", async function (req, res) {
+    var id = req.params.id;
+    var sort = req.params.sort;
+    var page = req.params.page;
+
+    var toDo = await ToDo.findOne({ _id: id }).select({ isCompleted: 1 });
 
     if (toDo.isCompleted) {
         await ToDo.updateOne({ _id: id }, { $set: { isCompleted: false } });

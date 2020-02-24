@@ -1,8 +1,10 @@
-const mongoose = require("mongoose");
+"use strict";
 
-const Schema = mongoose.Schema;
+var mongoose = require("mongoose");
 
-let toDoSchema = new Schema({
+var Schema = mongoose.Schema;
+
+var toDoSchema = new Schema({
     text: {
         type: String,
         required: true
@@ -17,6 +19,6 @@ let toDoSchema = new Schema({
     }
 });
 
-let ToDo = mongoose.model("todo", toDoSchema);
+var ToDo = mongoose.model("todo", toDoSchema);
 
 module.exports = ToDo;

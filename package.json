@@ -16,7 +16,8 @@
   "dependencies": {
     "ejs": "^3.0.1",
     "express": "^4.17.1",
-    "mongoose": "^5.8.11"
+    "mongoose": "^5.8.11",
+    "webpack": "^4.41.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -24,6 +25,7 @@
     "chai": "^4.2.0",
     "cypress": "^4.0.1",
     "mocha": "^7.0.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "webpack-cli": "^3.3.11"
   }
 }
