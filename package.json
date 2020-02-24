@@ -7,7 +7,9 @@
     "unittest": "mocha",
     "cypress": "cypress open",
     "cy:run": "cypress run -- --record --spec 'cypress/integration/todo_ui.spec.js'",
-    "test": "npm run unittest & npm run cy:run"
+    "test": "npm run unittest & npm run cy:run",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,./test,./cypress,./cypress.json --copy-files",
+    "start": "npm run build && node dist/main.js"
   },
   "author": "",
   "license": "ISC",
