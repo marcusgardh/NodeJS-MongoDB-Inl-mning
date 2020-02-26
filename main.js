@@ -7,15 +7,21 @@ const editRoute = require("./routes/editRoute");
 const deleteRoute = require("./routes/deleteRoute");
 const completionRoute = require("./routes/completionRoute");
 const ToDo = require("./model/ToDo");
+const databaseURL = process.env.MONGO_ATLAS_URL || require("./config/config");
 const options = {useNewUrlParser: true, useUnifiedTopology: true}
-if (process.env.NODE_ENV = "production") {
-    config.databaseURL = process.env.MONGO_ATLAS_URL
-}
-else {
-    const config = require("./config/config");
-}
 const port = process.env.PORT || 8000;
 const path = require("path");
+
+if (process.env.NODE_ENV == "production") {
+    const sassMiddleware = require("node-sass-middleware");
+
+    app.use(sassMiddleware({
+        src: "sass",
+        dest: "public",
+        // debug: true,
+        outputStyle: "compressed"
+    }))
+}
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
@@ -86,7 +92,7 @@ app.post("/", async (req, res) => {
 })
 
 mongoose
-.connect(config, options)
+.connect(databaseURL, options)
 .then(() => {
     app.listen(port);
 }).catch((e) => {
