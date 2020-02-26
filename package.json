@@ -4,23 +4,32 @@
   "description": "",
   "main": "main.js",
   "babel": {
-    "presets": ["@babel/preset-es2015"]
+    "presets": [
+      "@babel/preset-es2015"
+    ]
   },
   "scripts": {
     "unittest": "mocha",
     "cypress": "cypress open",
     "cy:run": "cypress run -- --record --spec 'cypress/integration/todo_ui.spec.js'",
     "test": "npm run unittest & npm run cy:run",
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,./test,./cypress,./cypress.json --copy-files",
-    "start": "npm run build && node dist/main.js"
+    "babelbuild": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,./test,./cypress,./cypress.json --copy-files",
+    "start": "npm run babelbuild && node dist/main.js",
+    "build": "webpack",
+    "start": "node dist/bundle"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "css-loader": "^3.4.2",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "mongoose": "^5.8.11",
-    "webpack": "^4.41.6"
+    "node-sass-middleware": "^0.11.0",
+    "sass-loader": "^8.0.2",
+    "webpack": "^4.41.6",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
