@@ -7,7 +7,14 @@ const editRoute = require("./routes/editRoute");
 const deleteRoute = require("./routes/deleteRoute");
 const completionRoute = require("./routes/completionRoute");
 const ToDo = require("./model/ToDo");
-const config = require("./config/config");
+const options = {useNewUrlParser: true, useUnifiedTopology: true}
+if (process.env.NODE_ENV = "production") {
+    config.databaseURL = process.env.MONGO_ATLAS_URL
+}
+else {
+    const config = require("./config/config");
+}
+const port = process.env.PORT || 8000;
 const path = require("path");
 
 app.use(express.urlencoded({extended: true}));
@@ -78,12 +85,9 @@ app.post("/", async (req, res) => {
     });
 })
 
-const options = {useNewUrlParser: true, useUnifiedTopology: true}
-
 mongoose
 .connect(config, options)
 .then(() => {
-    const port = process.env.PORT || 8000;
     app.listen(port);
 }).catch((e) => {
     console.log(e);
