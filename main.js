@@ -9,9 +9,21 @@ const completionRoute = require("./routes/completionRoute");
 const ToDo = require("./model/ToDo");
 const config = require("./config/config");
 const path = require("path");
+if (process.env.NODE_ENV == "development") {
+    const sassMiddleware = require("node-sass-middleware");
+
+    app.use(sassMiddleware({
+        src: "sass",
+        dest: "public",
+        debug: true,
+        outputStyle: "compressed",
+    }));
+}
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 app.set("views", "views");
 app.set("view engine", "ejs");
