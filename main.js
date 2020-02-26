@@ -12,19 +12,19 @@ const options = {useNewUrlParser: true, useUnifiedTopology: true}
 const port = process.env.PORT || 8000;
 const path = require("path");
 
-if (process.env.NODE_ENV == "production") {
+if (process.env.NODE_ENV == "development") {
     const sassMiddleware = require("node-sass-middleware");
 
     app.use(sassMiddleware({
         src: "sass",
         dest: "public",
-        // debug: true,
+        debug: true,
         outputStyle: "compressed"
     }))
 }
 
 app.use(express.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("/public"));
 
 app.set("views", "views");
 app.set("view engine", "ejs");
