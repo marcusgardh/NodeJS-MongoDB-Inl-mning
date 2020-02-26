@@ -7,8 +7,16 @@ const editRoute = require("./routes/editRoute");
 const deleteRoute = require("./routes/deleteRoute");
 const completionRoute = require("./routes/completionRoute");
 const ToDo = require("./model/ToDo");
-const config = require("./config/config");
+const options = {useNewUrlParser: true, useUnifiedTopology: true}
+if (process.env.NODE_ENV = "production") {
+    config.databaseURL = process.env.MONGO_ATLAS_URL
+}
+else {
+    const config = require("./config/config");
+}
+const port = process.env.PORT || 8000;
 const path = require("path");
+
 if (process.env.NODE_ENV == "development") {
     const sassMiddleware = require("node-sass-middleware");
 
@@ -16,14 +24,12 @@ if (process.env.NODE_ENV == "development") {
         src: "sass",
         dest: "public",
         debug: true,
-        outputStyle: "compressed",
-    }));
+        outputStyle: "compressed"
+    }))
 }
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
-
-app.use("/public", express.static(path.join(__dirname, "public")));
 
 app.set("views", "views");
 app.set("view engine", "ejs");
@@ -41,7 +47,7 @@ app.get("/", async (req, res) => {
         page = 1;
     }
 
-    toDosPerPage = 9;
+    const toDosPerPage = 9;
 
     let sort = req.query.sort;
     if (!sort) {
@@ -90,12 +96,9 @@ app.post("/", async (req, res) => {
     });
 })
 
-const options = {useNewUrlParser: true, useUnifiedTopology: true}
-
 mongoose
 .connect(config, options)
 .then(() => {
-    const port = process.env.PORT || 8000;
     app.listen(port);
 }).catch((e) => {
     console.log(e);
