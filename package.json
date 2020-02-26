@@ -16,7 +16,8 @@
     "babelbuild": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,./test,./cypress,./cypress.json --copy-files",
     "babelstart": "npm run babelbuild && node dist/main.js",
     "build": "webpack",
-    "start": "node dist/bundle"
+    "start": "node dist/bundle",
+    "web": "npm start"
   },
   "author": "",
   "license": "ISC",
