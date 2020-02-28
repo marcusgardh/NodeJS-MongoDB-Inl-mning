@@ -9,14 +9,14 @@
     ]
   },
   "scripts": {
+    "start": "node dist/bundle",
     "unittest": "mocha",
     "cypress": "cypress open",
     "cy:run": "cypress run -- --record --spec 'cypress/integration/todo_ui.spec.js'",
     "test": "npm run unittest & npm run cy:run",
     "babelbuild": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,./test,./cypress,./cypress.json --copy-files",
     "babelstart": "npm run babelbuild && node dist/main.js",
-    "build": "webpack",
-    "start": "node dist/bundle"
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
