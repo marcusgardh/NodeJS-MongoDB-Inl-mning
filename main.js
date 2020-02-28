@@ -7,7 +7,7 @@ const editRoute = require("./routes/editRoute");
 const deleteRoute = require("./routes/deleteRoute");
 const completionRoute = require("./routes/completionRoute");
 const ToDo = require("./model/ToDo");
-const databaseURL = process.env.MONGO_ATLAS_URL;
+let databaseURL = process.env.MONGO_ATLAS_URL;
 const options = {useNewUrlParser: true, useUnifiedTopology: true}
 const port = process.env.PORT || 8000;
 const path = require("path");
@@ -20,7 +20,7 @@ if (databaseURL == undefined) {
     }
 }
 
-if (process.env.NODE_ENV == "development") {
+if (process.env.NODE_ENV == "production") {
     const sassMiddleware = require("node-sass-middleware");
 
     app.use(sassMiddleware({
