@@ -12,6 +12,14 @@ const options = {useNewUrlParser: true, useUnifiedTopology: true}
 const port = process.env.PORT || 8000;
 const path = require("path");
 
+if (databaseURL == undefined) {
+    try {
+        databaseURL = require("./config/config");
+    } catch (exception) {
+        console.log("could not load local config file", exception.message);
+    }
+}
+
 if (process.env.NODE_ENV == "development") {
     const sassMiddleware = require("node-sass-middleware");
 
