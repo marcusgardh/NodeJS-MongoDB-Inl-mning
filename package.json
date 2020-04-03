@@ -14,7 +14,7 @@
     "cypress": "cypress open",
     "cy:run": "cypress run -- --record --spec 'cypress/integration/todo_ui.spec.js'",
     "test": "npm run unittest & npm run cy:run",
-    "babelbuild": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,./test,./cypress,./cypress.json --copy-files",
+    "babelbuild": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./cypress,./test,./npm-debug.log --copy-files,./sass",
     "babelstart": "npm run babelbuild && node dist/main.js",
     "build": "webpack"
   },
@@ -24,6 +24,7 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mongoose": "^5.9.2",
+    "node-sass-middleware": "^0.11.0",
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
@@ -33,7 +34,6 @@
     "css-loader": "^3.4.2",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "mocha": "^7.1.0",
-    "node-sass-middleware": "^0.11.0",
     "rimraf": "^3.0.2",
     "sass-loader": "^8.0.2",
     "webpack": "^4.41.6",
