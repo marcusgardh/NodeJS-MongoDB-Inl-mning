@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="sv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title><%= title %></title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="/main.css" />
+        <link href='https://fonts.googleapis.com/css?family=Alatsi' rel='stylesheet'>
+    </head>
+    <body>
+        <div id="searcharea">
+            <form method="POST">
+                <input type="text" placeholder="Ny punkt i listan" name="todo" />
+                <button type="submit">Lägg till</button>
+            </form>
+
+            <div>
+                <a class="text-dark" href="/?sort=1">Sortera äldst-nyast</a>
+                <a class="text-dark" href="/?sort=-1">Sortera nyast-äldst</a>
+            </div>
+            <div>
+                <a href="/?sort=<%= queries.sort %>&page=<%= queries.page - 1  %>">Till föregående sida</a> |
+                <a href="/?sort=<%= queries.sort %>&page=<%= Number(queries.page) + 1%>">Till nästa sida</a>
+            </div>
+            <div>
+                <a href="/about/<%= queries.sort %>/<%= queries.page %>">About</a>
+            </div>
+        </div>
+        
+        <main>
+            <div id="list">
+                <% for (let i = 0; i < array.length; i++) { %>
+                <div class="listitem <% if (array[i].isCompleted) {%>done<%} else {%>notdone<%}%>">
+                    <div class="textarea">
+                        <div>
+                            <span>
+                                <%= array[i].text %> - <%= array[i].date.getDate() %>/<%= array[i].date.getMonth()+1 %>
+                                -<%= array[i].date.getFullYear() %> <% if (array[i].date.getHours() < 10) { %>
+                                    0<% } %><%= array[i].date.getHours() %>:<% if (array[i].date.getMinutes() < 10) { %>0<% } %><%= array[i].date.getMinutes() %>
+                            </span>
+                        </div>
+                        <div>
+                            <a class="text-dark" href="/complete/<%= queries.sort %>/<%= queries.page %>/<%=array[i]._id%>">complete</a>
+                            <a class="text-dark" href="/edit/<%= queries.sort %>/<%= queries.page %>/<%=array[i]._id%>">Redigera</a>
+                            <a class="delete text-dark" href="/delete/<%= queries.sort %>/<%= queries.page %>/<%= array[i]._id %>">Ta bort</a>
+                        </div>
+                    </div>
+                    <div class="checkarea">
+                        <% if (array[i].isCompleted) {%><span>✓</span><%} else {%>X<%}%>
+                    </div>
+                </div>
+                <% } %>
+
+            </div>
+        </main>
+
+    </body>
+</html>
