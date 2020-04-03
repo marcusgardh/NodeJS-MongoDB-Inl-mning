@@ -1,21 +1,23 @@
-const express = require("express");
+"use strict";
 
-const ToDo = require("../model/ToDo");
+var express = require("express");
 
-const router = express.Router();
+var ToDo = require("../model/ToDo");
 
-router.get("/edit/:sort/:page/:id", async (req, res) => {
-    let text = (await ToDo.findOne({ _id: req.params.id }).select({ text: 1 })) || null;
+var router = express.Router();
+
+router.get("/edit/:sort/:page/:id", async function (req, res) {
+    var text = (await ToDo.findOne({ _id: req.params.id }).select({ text: 1 })) || null;
     res.render("edit", { title: "Redigera", text: text });
 });
 
-router.post("/edit/:sort/:page/:id", async (req, res) => {
-    let id = req.params.id;
-    let updatedText = req.body.todo;
-    let sort = req.params.sort;
-    let page = req.params.page;
+router.post("/edit/:sort/:page/:id", async function (req, res) {
+    var id = req.params.id;
+    var updatedText = req.body.todo;
+    var sort = req.params.sort;
+    var page = req.params.page;
 
-    await ToDo.updateOne({ _id: id }, { $set: { text: updatedText } }, { runValidators: true }, (error, success) => {
+    await ToDo.updateOne({ _id: id }, { $set: { text: updatedText } }, { runValidators: true }, function (error, success) {
         if (error) {
             res.send(error._message);
         } else {

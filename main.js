@@ -7,10 +7,18 @@ const editRoute = require("./routes/editRoute");
 const deleteRoute = require("./routes/deleteRoute");
 const completionRoute = require("./routes/completionRoute");
 const ToDo = require("./model/ToDo");
-const databaseURL = process.env.MONGO_ATLAS_URL || require("./config/config");
+let databaseURL = process.env.MONGO_ATLAS_URL;
 const options = {useNewUrlParser: true, useUnifiedTopology: true}
 const port = process.env.PORT || 8000;
 const path = require("path");
+
+if (databaseURL == undefined) {
+    try {
+        databaseURL = require("./config/config");
+    } catch (exception) {
+        console.log("could not load local config file", exception.message);
+    }
+}
 
 if (process.env.NODE_ENV == "production") {
     const sassMiddleware = require("node-sass-middleware");
@@ -18,13 +26,13 @@ if (process.env.NODE_ENV == "production") {
     app.use(sassMiddleware({
         src: "sass",
         dest: "public",
-        // debug: true,
+        debug: true,
         outputStyle: "compressed"
     }))
 }
 
 app.use(express.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("/public"));
 
 app.set("views", "views");
 app.set("view engine", "ejs");

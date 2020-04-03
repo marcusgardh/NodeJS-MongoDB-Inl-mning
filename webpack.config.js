@@ -4,12 +4,13 @@ const nodeExternals = require('webpack-node-externals')
 module.exports = {
     mode: 'production',
     target: 'node',
-    entry: ['./main.js', './sass/main.scss'],
+    entry: ['./main.js', "./sass/main.scss"],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         publicPath: './public'
     },
+    externals: [nodeExternals()],
     module: {
         rules: [{
             test: /\.(sass|scss)$/,
@@ -25,6 +26,5 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin({
             filename: 'public/main.css'
-        })],
-    externals: [nodeExternals()]
+        })]
 }
