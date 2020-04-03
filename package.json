@@ -9,7 +9,7 @@
     ]
   },
   "scripts": {
-    "start": "node dist/bundle",
+    "start": "node dist/main.js",
     "unittest": "mocha",
     "cypress": "cypress open",
     "cy:run": "cypress run -- --record --spec 'cypress/integration/todo_ui.spec.js'",
