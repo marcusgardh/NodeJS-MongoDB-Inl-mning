@@ -7,7 +7,7 @@ var editRoute = require("./routes/editRoute");
 var deleteRoute = require("./routes/deleteRoute");
 var completionRoute = require("./routes/completionRoute");
 var ToDo = require("./model/ToDo");
-var databaseURL = require("./config/config").mongoDB.databaseURL;
+var databaseURL = require("./config/config").mongoDB.databaseURL || process.env.MONGO_ATLAS_URL;
 var options = { useNewUrlParser: true, useUnifiedTopology: true };
 var port = process.env.PORT || 8000;
 
