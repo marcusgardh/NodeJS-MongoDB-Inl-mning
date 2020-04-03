@@ -14,7 +14,6 @@ const sassMiddleware = require("node-sass-middleware");
 app.use(sassMiddleware({
     src: "sass",
     dest: "public",
-    debug: true,
     outputStyle: "compressed"
 }))
 
