@@ -1,17 +1,25 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
 const app = express();
-
 const editRoute = require("./routes/editRoute");
 const deleteRoute = require("./routes/deleteRoute");
 const completionRoute = require("./routes/completionRoute");
 const ToDo = require("./model/ToDo");
-const config = require("./config/config");
-const path = require("path");
+let databaseURL = require("./config/config").mongoDB.databaseURL;
+const options = {useNewUrlParser: true, useUnifiedTopology: true}
+const port = process.env.PORT || 8000;
+
+const sassMiddleware = require("node-sass-middleware");
+
+app.use(sassMiddleware({
+    src: "sass",
+    dest: "public",
+    debug: true,
+    outputStyle: "compressed"
+}))
 
 app.use(express.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("/public"));
 
 app.set("views", "views");
 app.set("view engine", "ejs");
@@ -78,12 +86,9 @@ app.post("/", async (req, res) => {
     });
 })
 
-const options = {useNewUrlParser: true, useUnifiedTopology: true}
-
 mongoose
-.connect(config, options)
+.connect(databaseURL, options)
 .then(() => {
-    const port = process.env.PORT || 8000;
     app.listen(port);
 }).catch((e) => {
     console.log(e);

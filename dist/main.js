@@ -2,18 +2,26 @@
 
 var express = require("express");
 var mongoose = require("mongoose");
-
 var app = express();
-
 var editRoute = require("./routes/editRoute");
 var deleteRoute = require("./routes/deleteRoute");
 var completionRoute = require("./routes/completionRoute");
 var ToDo = require("./model/ToDo");
-var config = require("./config/config");
-var path = require("path");
+var databaseURL = require("./config/config").mongoDB.databaseURL;
+var options = { useNewUrlParser: true, useUnifiedTopology: true };
+var port = process.env.PORT || 8000;
+
+var sassMiddleware = require("node-sass-middleware");
+
+app.use(sassMiddleware({
+    src: "sass",
+    dest: "public",
+    debug: true,
+    outputStyle: "compressed"
+}));
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("/public"));
 
 app.set("views", "views");
 app.set("view engine", "ejs");
@@ -76,10 +84,7 @@ app.post("/", async function (req, res) {
     });
 });
 
-var options = { useNewUrlParser: true, useUnifiedTopology: true };
-
-mongoose.connect(config, options).then(function () {
-    var port = process.env.PORT || 8000;
+mongoose.connect(databaseURL, options).then(function () {
     app.listen(port);
 }).catch(function (e) {
     console.log(e);
