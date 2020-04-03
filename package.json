@@ -16,8 +16,7 @@
     "cy:run": "cypress run -- --record --spec 'cypress/integration/todo_ui.spec.js'",
     "test": "npm run unittest & npm run cy:run",
     "babelbuild": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./webpack.config.js,./node_modules,./.babelrc,./package.json,./cypress,./test,./npm-debug.log --copy-files,./sass",
-    "babelstart": "npm run babelbuild && node dist/main.js",
-    "build": "webpack"
+    "babelstart": "npm run babelbuild && node dist/main.js"
   },
   "author": "",
   "license": "ISC",
