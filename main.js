@@ -8,8 +8,6 @@ const ToDo = require("./model/ToDo");
 let databaseURL = require("./config/config").mongoDB.databaseURL;
 const options = {useNewUrlParser: true, useUnifiedTopology: true}
 const port = process.env.PORT || 8000;
-const path = require("path");
-
 
 const sassMiddleware = require("node-sass-middleware");
 
