@@ -1,35 +1,24 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
 const app = express();
-
 const editRoute = require("./routes/editRoute");
 const deleteRoute = require("./routes/deleteRoute");
 const completionRoute = require("./routes/completionRoute");
 const ToDo = require("./model/ToDo");
-let databaseURL = process.env.MONGO_ATLAS_URL;
+let databaseURL = require("./config/config").mongoDB.databaseURL;
 const options = {useNewUrlParser: true, useUnifiedTopology: true}
 const port = process.env.PORT || 8000;
 const path = require("path");
 
-if (databaseURL == undefined) {
-    try {
-        databaseURL = require("./config/config");
-    } catch (exception) {
-        console.log("could not load local config file", exception.message);
-    }
-}
 
-if (process.env.NODE_ENV == "production") {
-    const sassMiddleware = require("node-sass-middleware");
+const sassMiddleware = require("node-sass-middleware");
 
-    app.use(sassMiddleware({
-        src: "sass",
-        dest: "public",
-        debug: true,
-        outputStyle: "compressed"
-    }))
-}
+app.use(sassMiddleware({
+    src: "sass",
+    dest: "public",
+    debug: true,
+    outputStyle: "compressed"
+}))
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("/public"));

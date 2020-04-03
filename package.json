@@ -10,17 +10,19 @@
   },
   "scripts": {
     "start": "node dist/main.js",
+    "start-dev": "node main.js",
     "unittest": "mocha",
     "cypress": "cypress open",
     "cy:run": "cypress run -- --record --spec 'cypress/integration/todo_ui.spec.js'",
     "test": "npm run unittest & npm run cy:run",
-    "babelbuild": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./cypress,./test,./npm-debug.log --copy-files,./sass",
+    "babelbuild": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./webpack.config.js,./node_modules,./.babelrc,./package.json,./cypress,./test,./npm-debug.log --copy-files,./sass",
     "babelstart": "npm run babelbuild && node dist/main.js",
     "build": "webpack"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mongoose": "^5.9.2",
